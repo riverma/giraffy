@@ -1,0 +1,111 @@
+/* Giraffy design tokens.
+   Values transcribed from the Ahimsa design system (colour, gradient,
+   type, spacing, radius, shadow, motion), with Giraffy's warm-canvas
+   overrides applied at the end. See spec §7 "Canvas" and §8. */
+
+:root {
+  /* ---- Neutral: warm cream to warm dark brown ---- */
+  --neutral-50:  #faf8f5;
+  --neutral-100: #f4f0ea;
+  --neutral-200: #ebe6df;
+  --neutral-300: #e0dcd5;
+  --neutral-400: #b8b0a4;
+  --neutral-500: #8a8078;
+  --neutral-600: #605850;
+  --neutral-700: #3d3428;
+  --neutral-800: #2a1f18;
+  --neutral-900: #1a1310;
+
+  /* ---- Accent palettes (300 to 700), muted and warm ---- */
+  --saffron-300: #f8b877; --saffron-400: #f29e4e; --saffron-500: #e8862e; --saffron-600: #c96d1e; --saffron-700: #a05415;
+  --turmeric-300: #edd07e; --turmeric-400: #e3b94f; --turmeric-500: #d4a02b; --turmeric-600: #b3841f; --turmeric-700: #8d6716;
+  --clay-300: #dda184; --clay-400: #cd8060; --clay-500: #b96144; --clay-600: #9c4c33; --clay-700: #7c3a27;
+  --bodhi-300: #b5cf9e; --bodhi-400: #93b976; --bodhi-500: #729e53; --bodhi-600: #5a8340; --bodhi-700: #456631;
+  --peacock-300: #8ecbd1; --peacock-400: #5fb0bb; --peacock-500: #3b93a3; --peacock-600: #2c7787; --peacock-700: #215d6b;
+  --indigo-300: #9ba4d6; --indigo-400: #7480c4; --indigo-500: #545fae; --indigo-600: #414a92; --indigo-700: #313876;
+  --monsoon-300: #9dadc2; --monsoon-400: #7a8fab; --monsoon-500: #5d7492; --monsoon-600: #475b77; --monsoon-700: #36465d;
+
+  /* ---- Semantic surfaces ---- */
+  --surface-canvas:   var(--neutral-200);
+  --surface-elevated: var(--neutral-50);
+  --surface-sunk:     var(--neutral-300);
+  --surface-inverse:  var(--neutral-800);
+
+  /* ---- Semantic text ---- */
+  --text-heading:   var(--neutral-800);
+  --text-body:      var(--neutral-700);
+  --text-secondary: #3d3428a6;
+  --text-muted:     #3d342873;
+  --text-faint:     #3d342847;
+  --text-inverse:   var(--neutral-50);
+
+  /* ---- Semantic borders ---- */
+  --border-subtle: #3d342814;
+  --border-medium: #3d34282e;
+  --border-strong: #3d342859;
+
+  /* ---- Semantic accents ---- */
+  --accent-primary:   var(--saffron-600);
+  --accent-secondary: var(--indigo-500);
+  --accent-success:   var(--bodhi-600);
+  --accent-warning:   var(--clay-600);
+
+  /* ---- Glass ---- */
+  --glass-overlay:        #ffffff6b;
+  --glass-overlay-strong: #ffffff8f;
+  --glass-scrim:          #140f0a73;
+
+  /* ---- Gradients ---- */
+  --gradient-dawn:     linear-gradient(155deg, #f4a578 0%, #f5be8e 30%, #f6d3a8 60%, #fae7c6 100%);
+  --gradient-saffron:  linear-gradient(155deg, #e8862e 0%, #f0a256 30%, #f6bd81 60%, #fad8ae 100%);
+  --gradient-turmeric: linear-gradient(155deg, #d4a02b 0%, #dfb455 30%, #e9c982 60%, #f2ddb0 100%);
+  --gradient-clay:     linear-gradient(155deg, #b96144 0%, #cd8060 30%, #dda184 60%, #ecc3ad 100%);
+  --gradient-bodhi:    linear-gradient(155deg, #729e53 0%, #93b976 30%, #b5cf9e 60%, #d6e4c8 100%);
+  --gradient-peacock:  linear-gradient(155deg, #3b93a3 0%, #5fb0bb 30%, #8ecbd1 60%, #bee2e4 100%);
+  --gradient-indigo:   linear-gradient(155deg, #545fae 0%, #7480c4 30%, #9ba4d6 60%, #c5c9e6 100%);
+  --gradient-monsoon:  linear-gradient(155deg, #5d7492 0%, #7a8fab 30%, #9dadc2 60%, #c2cbd8 100%);
+  --gradient-cream:    linear-gradient(170deg, #fdf6e8 0%, #f9ebcf 50%, #f3deb3 100%);
+
+  /* ---- Type ---- */
+  --font-display: "Fraunces", Georgia, "Iowan Old Style", serif;
+  --font-body:    "DM Sans", -apple-system, system-ui, sans-serif;
+  --font-mono:    ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --size-micro: 9px; --size-xs: 10px; --size-sm: 11px; --size-base: 13px; --size-md: 15px;
+  --size-lg: 17px; --size-xl: 22px; --size-2xl: 28px; --size-3xl: 34px; --size-4xl: 40px; --size-5xl: 48px;
+
+  /* ---- Spacing (4px grid) ---- */
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 20px; --space-6: 24px;
+  --space-7: 28px; --space-8: 32px; --space-10: 40px; --space-12: 48px; --space-16: 64px;
+
+  /* ---- Radius ---- */
+  --radius-xs: 4px; --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px; --radius-xl: 20px;
+  --radius-2xl: 24px; --radius-3xl: 32px; --radius-full: 9999px;
+
+  /* ---- Shadows (warm-tinted) ---- */
+  --shadow-xs: 0 1px 2px #3d342814;
+  --shadow-sm: 0 2px 8px #3d342821;
+  --shadow-md: 0 4px 20px #3d342829, inset 0 1px 0 #ffffff99;
+  --shadow-lg: 0 8px 32px #3d342833;
+  --shadow-xl: 0 30px 60px -20px #00000059, 0 12px 24px -12px #00000033;
+  --shadow-sheet: 0 -10px 40px #0000002e;
+
+  /* ---- Motion ---- */
+  --duration-instant: 100ms; --duration-fast: 200ms; --duration-base: 300ms;
+  --duration-slow: 400ms; --duration-slower: 550ms; --duration-slowest: 800ms;
+  --ease-standard:   cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-emphasized: cubic-bezier(0.32, 0.72, 0.32, 1);
+  --ease-decelerate: cubic-bezier(0, 0, 0.2, 1);
+  --ease-accelerate: cubic-bezier(0.4, 0, 1, 1);
+
+  /* ---- Giraffy's warm canvas (spec §7, mockup r9/r10) ---- */
+  --surface-canvas: linear-gradient(160deg, #fbe5cd 0%, #fdeedb 45%, #fef6ea 100%);
+  --surface-canvas-flat: #fdeedb;
+  --surface-sunk: #f9e6d0;
+  --text-secondary: #3d3428c2;
+  --text-muted: #3d342899;
+  --text-faint: #3d342866;
+  --border-subtle: #3d34281f;
+  --border-medium: #3d342840;
+  --canvas-checkin: linear-gradient(160deg, #f9dcbb 0%, #fbe7cf 45%, #fdf1e0 100%);
+  --nudge-bg: #dda18429;
+}
