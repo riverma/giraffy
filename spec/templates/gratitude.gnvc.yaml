@@ -1,0 +1,40 @@
+# A Giraffy card, written with care. Read it top to bottom,
+# or open it at https://giraffy.riverma.com
+#
+# This is a blank gratitude card. A gratitude names what someone did, what
+# it stirred in you, and which of your needs it met. It asks for nothing.
+
+from: Your name
+to: Their name
+about: "A few words on what this is about"
+
+summary: >
+  When <what they did>, I felt <feelings>, because it met my need for <needs>.
+
+# What they did. An observation, not a verdict: "you drove out at midnight"
+# rather than "you were so thoughtful".
+observation: >
+  When <what you saw or heard>.
+
+feelings:
+  - a feeling
+  - another feeling
+
+needs:
+  - the need it met
+
+# A gratitude carries no request.
+requests: []
+
+status: ready
+status_history:
+  - { state: ready, by: Your name, at: 2026-01-01T09:00:00Z }
+
+entangled_with: []
+
+# ---- giraffy app-only details ----
+kind: gratitude
+id: 00000000-0000-4000-8000-000000000001
+created: 2026-01-01T09:00:00Z
+updated: 2026-01-01T09:00:00Z
+gnvc: "1.0"  # spec: https://w3id.org/gnvc/1.0
