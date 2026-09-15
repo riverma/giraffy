@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <!--
+      Giraffy makes no network requests at all, and connect-src 'none' is what makes that a
+      rule rather than a habit: nothing it holds can be sent anywhere, however the code
+      changes. style-src allows inline because the app styles elements by attribute.
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'none'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'"
+    />
+    <title>Giraffy</title>
+    <meta name="description" content="A Nonviolent Communication companion. Offline, on your own device, with no accounts and no servers." />
+    <meta name="theme-color" content="#fdeedb" />
+    <meta name="color-scheme" content="light" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Giraffy" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./icons/icon-180.png" />
+    <link rel="preload" href="./fonts/Fraunces-Italic-VariableFont.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="./fonts/DMSans-VariableFont.woff2" as="font" type="font/woff2" crossorigin />
+  </head>
+  <body>
+    <div id="app"></div>
+    <noscript>Giraffy needs JavaScript to run. It still never sends your cards anywhere: everything happens on this device.</noscript>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
