@@ -1,0 +1,49 @@
+# A Giraffy card, written with care. Read it top to bottom,
+# or open it at https://giraffy.riverma.com
+#
+# This is a blank request card. Fill it in by hand if you like: it is
+# plain text, and any editor will do. The format is CC0.
+
+from: Your name
+to: Their name
+about: "A few words on what this is about"
+
+# The whole card in a sentence or two. This is what a person reads first.
+summary: >
+  When <what happened>, I felt <feelings>, because I need <needs>.
+  Would you be willing to <the request>?
+
+# Just what you saw or heard, the way a caring friend who watched the
+# moment, but was not part of it, might retell it.
+observation: >
+  When <what you saw or heard>.
+
+# What you felt, in you. Not what you think they did.
+feelings:
+  - a feeling
+  - another feeling
+
+# The needs underneath the feelings.
+needs:
+  - a need
+  - another need
+
+# A request is a gift of clarity, not an obligation. A no is a complete answer.
+requests:
+  - Would you be willing to <something concrete and doable>?
+
+# Where the card stands, and every step it has taken.
+# States: draft, ready, shared, received, heard, yes, no, maybe, given, celebrated, withdrawn
+status: ready
+status_history:
+  - { state: ready, by: Your name, at: 2026-01-01T09:00:00Z }
+
+# Ids of cards whose needs are entangled with this one.
+entangled_with: []
+
+# ---- giraffy app-only details ----
+kind: request
+id: 00000000-0000-4000-8000-000000000000
+created: 2026-01-01T09:00:00Z
+updated: 2026-01-01T09:00:00Z
+gnvc: "1.0"  # spec: https://w3id.org/gnvc/1.0
