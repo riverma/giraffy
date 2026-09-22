@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+test-results/
+playwright-report/
+.vite/
+
+# never, in a repo that has no server to configure
+.env
+.env.*
