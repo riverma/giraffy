@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <!--
+      Giraffy makes no network requests at all, and connect-src 'none' is what makes that a
+      rule rather than a habit: nothing it holds can be sent anywhere, however the code
+      changes. style-src allows inline because the app styles elements by attribute.
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'none'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'"
+    />
+    <title>Giraffy</title>
+    <meta name="description" content="A Nonviolent Communication companion. Offline, on your own device, with no accounts and no servers." />
+    <meta name="theme-color" content="#fdeedb" />
+    <meta name="color-scheme" content="light" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Giraffy" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./icons/icon-180.png" />
+    <link rel="preload" href="./fonts/Fraunces-Italic-VariableFont.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="./fonts/DMSans-VariableFont.woff2" as="font" type="font/woff2" crossorigin />
+    <!-- Inline, so it still holds if the stylesheet is the thing that failed to load. The
+         policy above allows inline style and forbids inline script, which is why the boot
+         fallback is done this way round: CSS shows it, and the app mounting hides it. -->
+    <style>
+      #boot-fallback {
+        max-width: 34em; margin: 0 auto; padding: 18vh 24px 24px;
+        font-family: system-ui, -apple-system, sans-serif; font-size: 16px; line-height: 1.55;
+        color: #4a3f35; background: #fdeedb; min-height: 100vh; box-sizing: border-box;
+      }
+      #boot-fallback p { margin: 0 0 14px; }
+      /* The app mounts into #app, so anything in there means it started: stand down. */
+      #app:not(:empty) ~ #boot-fallback { display: none; }
+    </style>
+    <script type="module" crossorigin src="/assets/index.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index.css">
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- Shown only while #app is empty, which means the app never mounted: the script did not
+         load, or a stale copy of this page asked for a file that is no longer there. Plain
+         HTML and CSS on purpose, because the content security policy forbids inline script,
+         and because whatever went wrong may have taken the script with it. -->
+    <div id="boot-fallback">
+      <p><strong>Giraffy could not finish loading.</strong></p>
+      <p>This usually means the browser is holding an out of date copy of the page. Reload,
+        and if it keeps happening, close Giraffy and open it again.</p>
+      <p>Nothing you have written is affected. Your cards and needs are stored on this device
+        and are not part of what failed to load.</p>
+    </div>
+    <noscript>Giraffy needs JavaScript to run. It still never sends your cards anywhere: everything happens on this device.</noscript>
+  </body>
+</html>
