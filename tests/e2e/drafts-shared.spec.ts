@@ -5,7 +5,7 @@ import { expect, test, type Page } from '@playwright/test';
 /** A device that has never seen Giraffy, belonging to someone else. */
 async function onboard(page: Page, name: string, at = '/'): Promise<void> {
   await page.goto(at);
-  await page.getByRole('button', { name: 'Setup' }).click();
+  await page.getByRole('button', { name: 'Set up' }).click();
   await page.getByRole('button', { name: 'Continue' }).click();
   await page.getByPlaceholder('A name').fill(name);
   await page.getByRole('button', { name: 'Continue' }).click();
@@ -83,7 +83,7 @@ test('a half-written card goes to someone, who adds to it and sends it back', as
   await robin.getByRole('button', { name: /Add to Received|Take it as my draft|Keep it as it is/ }).first().click();
 
   await robin.locator('.tabbar .tab', { hasText: 'Cards' }).click();
-  await robin.locator('.card.list', { hasText: 'the rota went up' }).first().click();
+  await robin.locator('.ah-card--list', { hasText: 'the rota went up' }).first().click();
   await expect(robin.getByText('Still a draft, shared by Maya')).toBeVisible();
   await expect(robin.getByRole('button', { name: 'Send it back to Maya' })).toBeVisible();
 

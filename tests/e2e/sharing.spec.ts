@@ -7,7 +7,7 @@ test('what is copied is the card and nothing above it', async ({ page }) => {
   await page.context().grantPermissions(['clipboard-read', 'clipboard-write']);
   await page.goto('/?demo');
   await page.locator('.tabbar .tab', { hasText: 'Cards' }).click();
-  await page.locator('.card.list', { hasText: 'worked through lunch' }).first().click();
+  await page.locator('.ah-card--list', { hasText: 'worked through lunch' }).first().click();
   await page.getByRole('button', { name: 'Share', exact: true }).click();
   await page.getByRole('button', { name: 'Copy as text' }).click();
 
@@ -21,7 +21,7 @@ test('what is copied is the card and nothing above it', async ({ page }) => {
 test('the share sheet offers a file, and keeps the note beside the card', async ({ page }) => {
   await page.goto('/?demo');
   await page.locator('.tabbar .tab', { hasText: 'Cards' }).click();
-  await page.locator('.card.list', { hasText: 'worked through lunch' }).first().click();
+  await page.locator('.ah-card--list', { hasText: 'worked through lunch' }).first().click();
   await page.getByRole('button', { name: 'Share', exact: true }).click();
 
   await expect(page.getByRole('button', { name: 'Save the file' })).toBeVisible();
@@ -36,7 +36,7 @@ test('the share sheet offers a file, and keeps the note beside the card', async 
 test('a card pasted in with a note above it still reads', async ({ page }) => {
   await page.goto('/?demo');
   await page.locator('.tabbar .tab', { hasText: 'Cards' }).click();
-  await page.locator('.card.list', { hasText: 'worked through lunch' }).first().click();
+  await page.locator('.ah-card--list', { hasText: 'worked through lunch' }).first().click();
   await page.getByRole('button', { name: 'Share', exact: true }).click();
   const body = await page.locator('.yaml pre').innerText();
   await page.getByRole('button', { name: 'Close' }).click();

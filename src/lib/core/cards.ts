@@ -14,11 +14,11 @@ export const STATE_ORDER: CardState[] = ['received', 'heard', 'maybe', 'shared',
 
 export function statusDot(s: CardState | string): string {
   return ({
-    draft: 'var(--neutral-400)', ready: 'var(--turmeric-500)', shared: 'var(--saffron-500)',
-    received: 'var(--indigo-400)', heard: 'var(--peacock-500)', yes: 'var(--bodhi-500)',
-    no: 'var(--clay-500)', maybe: 'var(--indigo-500)', given: 'var(--bodhi-600)',
-    celebrated: 'var(--indigo-600)', withdrawn: 'var(--neutral-400)'
-  } as Record<string, string>)[s] ?? 'var(--neutral-400)';
+    draft: 'var(--text-muted)', ready: 'var(--accent-secondary)', shared: 'var(--accent-primary)',
+    received: 'var(--accent-secondary)', heard: 'var(--accent-primary)', yes: 'var(--accent-success)',
+    no: 'var(--accent-warning)', maybe: 'var(--accent-secondary)', given: 'var(--accent-success)',
+    celebrated: 'var(--accent-primary)', withdrawn: 'var(--text-muted)'
+  } as Record<string, string>)[s] ?? 'var(--text-muted)';
 }
 
 export function otherName(c: Pick<Card, 'mine' | 'from' | 'to'>): string {

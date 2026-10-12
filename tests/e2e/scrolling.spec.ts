@@ -5,7 +5,7 @@ import { expect, test, type Page } from '@playwright/test';
 
 async function swipeUp(page: Page): Promise<number> {
   const cdp = await page.context().newCDPSession(page);
-  const box = await page.locator('.screen .scroll').boundingBox();
+  const box = await page.locator('.ah-screen .ah-scroll').boundingBox();
   if (!box) throw new Error('no scroll region on this screen');
   const x = Math.round(box.x + box.width / 2);
   const y = Math.round(box.y + box.height * 0.75);
@@ -17,14 +17,14 @@ async function swipeUp(page: Page): Promise<number> {
   }
   await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
   await page.waitForTimeout(600);
-  return page.evaluate(() => document.querySelector('.screen .scroll')!.scrollTop);
+  return page.evaluate(() => document.querySelector('.ah-screen .ah-scroll')!.scrollTop);
 }
 
 test('the needs list moves under a finger once an area is open', async ({ page }) => {
   await page.goto('/?demo');
   await page.getByText('Autonomy').click();
   const room = await page.evaluate(() => {
-    const s = document.querySelector('.screen .scroll')!;
+    const s = document.querySelector('.ah-screen .ah-scroll')!;
     return s.scrollHeight - s.clientHeight;
   });
   expect(room).toBeGreaterThan(100);
@@ -37,7 +37,7 @@ test('every tab scrolls the region inside the screen, not the page', async ({ pa
     await page.locator('.tabbar .tab', { hasText: tab }).click();
     await page.waitForTimeout(300);
     const room = await page.evaluate(() => {
-      const s = document.querySelector('.screen .scroll')!;
+      const s = document.querySelector('.ah-screen .ah-scroll')!;
       return s.scrollHeight - s.clientHeight;
     });
     if (room > 100) expect(await swipeUp(page), tab).toBeGreaterThan(50);
@@ -50,13 +50,13 @@ test('every tab scrolls the region inside the screen, not the page', async ({ pa
 // scroll at all, but the last area must never be stuck underneath the bottom bar. These
 // measure the outcome a thumb gets, not how the room happens to be reserved.
 async function clearanceAtTheEnd(page: Page): Promise<{ clearance: number; covered: number }> {
-  await page.evaluate(() => document.querySelector('.screen .scroll')!.scrollTo(0, 99999));
+  await page.evaluate(() => document.querySelector('.ah-screen .ah-scroll')!.scrollTo(0, 99999));
   await page.waitForTimeout(300);
   return page.evaluate(() => {
-    const s = document.querySelector('.screen .scroll')!;
+    const s = document.querySelector('.ah-screen .ah-scroll')!;
     const frame = document.getElementById('app')!.getBoundingClientRect();
     const bar = document.querySelector('.tabbar')!.getBoundingClientRect();
-    const cards = [...s.querySelectorAll(':scope > .card')];
+    const cards = [...s.querySelectorAll(':scope > .ah-card')];
     const last = cards[cards.length - 1].getBoundingClientRect();
     return { clearance: Math.round(bar.top - last.bottom), covered: Math.round(frame.bottom - bar.top) };
   });
@@ -95,7 +95,7 @@ test('the scroll region is allowed to be shorter than what is in it', async ({ p
   await page.goto('/?demo');
   await page.getByText('Autonomy').waitFor();
   const css = await page.evaluate(() => {
-    const s = getComputedStyle(document.querySelector('.screen .scroll')!);
+    const s = getComputedStyle(document.querySelector('.ah-screen .ah-scroll')!);
     return { minHeight: s.minHeight, overflowY: s.overflowY };
   });
   expect(css.minHeight).toBe('0px');

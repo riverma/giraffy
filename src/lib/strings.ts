@@ -35,13 +35,13 @@ export const S = {
     chosen: (folder: string) => 'Backups go to ' + folder + ' from now on, and keep themselves up to date.',
     savedTo: (folder: string, name: string) => 'Saved to ' + folder + ' as ' + name + '.',
     resumed: 'Backups are running again.',
-    paused: 'Backups are paused: the browser needs your permission again. Settings can give it.',
+    paused: 'Backups are paused: the browser needs your permission again. Everything is still on this device.',
     notAllowed: 'Without permission to write there, Giraffy cannot keep the copy up to date.',
     stopped: 'Backups stopped. The files already in the folder stay where they are.'
   },
 
   cards: {
-    backupSaved: 'Backup saved: your name, settings, people, needs, any needs and areas of your own, drafts, and every card.'
+    backupSaved: 'Backup file prepared, with your name, settings, people, needs, any needs and areas of your own, drafts, and every card.'
   },
 
   cardTo: {
@@ -81,7 +81,9 @@ export const S = {
     noteCopied: 'The note is copied. Send it in your own words if you would rather.',
     shared: 'Handed to the share sheet.',
     shareFailed: 'Sharing was not available here, so the card was copied instead. Paste it into any chat.',
-    saved: 'Saved as a file.'
+    saved: 'The file is ready. Look in your downloads or the app you chose.',
+    copyFailed: 'That did not copy. Nothing was changed, and the card is still here.',
+    saveFailed: 'That did not save. Nothing was changed, and the card is still here.'
   },
 
   guess: {
@@ -141,7 +143,7 @@ export const S = {
     body1: 'This removes every card, every need you have marked, every person, and your settings. Giraffy goes back to its very first screen, as if just installed.',
     title2: 'One last check',
     body2: 'There is no undo, and no server copy to recover from. If any of this might matter later, save a backup first. It takes a moment and stays on your device.',
-    backupSaved: 'Backup saved. Erase whenever you are ready.',
+    backupSaved: 'Backup file prepared. Check your downloads, then erase whenever you are ready.',
     done: 'Everything erased. Giraffy is as new.'
   },
 
@@ -226,12 +228,6 @@ export const S = {
       restored: (cards: number, people: number) => 'Restored: ' + cards + ' cards, ' + people + ' people, your needs, name, and settings. You can undo this.'
     },
     records: { merged: 'Merged a reply', imported: 'Imported a card', restored: 'Restored a backup' }
-  },
-
-  update: {
-    ready: 'A new version of Giraffy is ready. Your cards and needs are untouched.',
-    button: 'Reload',
-    updating: 'Reloading…'
   },
 
   install: {

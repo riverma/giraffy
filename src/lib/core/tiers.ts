@@ -5,8 +5,8 @@ import type { Need } from '$lib/data/needs';
 export const TIER_SEQ: (Tier | null)[] = [null, 'met', 'partly', 'unmet'];
 
 export function tierDot(t: Tier | null | undefined): string {
-  const dots: Record<Tier, string> = { met: 'var(--bodhi-500)', partly: 'var(--turmeric-500)', unmet: 'var(--clay-500)' };
-  return t ? dots[t] : 'var(--neutral-400)';
+  const dots: Record<Tier, string> = { met: 'var(--accent-success)', partly: 'var(--accent-secondary)', unmet: 'var(--accent-warning)' };
+  return t ? dots[t] : 'var(--text-muted)';
 }
 
 export function tierLabel(t: Tier | null | undefined): string {
@@ -86,22 +86,16 @@ export function pct(st: CatStats, k: Tier): string {
 export interface ChipStyle {
   selected: boolean;
   dot: string;
-  bg: string;
-  color: string;
-  shadow: string;
+  /** Inline tint for a rated need. Empty when the chip's own states (rest, selected) say it all. */
+  style: string;
 }
 
-/** A chip that carries its tier: tinted when rated, inverted when selected. */
+/** A chip that carries its tier: tinted when rated; the system's selected state when selected. */
 export function chipStyle(selected: boolean, tier: Tier | null | undefined): ChipStyle {
   const dot = tierDot(tier);
-  if (selected) return { selected, dot, bg: 'var(--text-heading)', color: 'var(--text-inverse)', shadow: 'none' };
-  if (tier) {
-    return {
-      selected, dot,
-      bg: 'color-mix(in srgb, ' + dot + ' 16%, var(--surface-elevated))',
-      color: 'var(--text-heading)',
-      shadow: 'inset 0 0 0 1px color-mix(in srgb, ' + dot + ' 45%, transparent)'
-    };
-  }
-  return { selected, dot, bg: 'var(--glass-overlay)', color: 'var(--text-heading)', shadow: 'inset 0 0 0 1px var(--border-subtle)' };
+  if (selected || !tier) return { selected, dot, style: '' };
+  return {
+    selected, dot,
+    style: 'background:color-mix(in srgb, ' + dot + ' 16%, var(--surface-elevated));box-shadow:inset 0 0 0 1px color-mix(in srgb, ' + dot + ' 45%, transparent)'
+  };
 }

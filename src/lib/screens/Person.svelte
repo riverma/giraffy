@@ -6,7 +6,6 @@
   import { cardsWithPerson, draftsWithPerson, linksWith, needsWithPerson, personSummary } from '$lib/core/people';
   import { SELF_ID } from '$lib/core/types';
   import { tierDot } from '$lib/core/tiers';
-  import Icon from '$lib/ui/Icon.svelte';
   import CardRow from '$lib/ui/CardRow.svelte';
 
   let { id }: { id: string } = $props();
@@ -19,49 +18,49 @@
 </script>
 
 {#if p}
-  <div class="screen over">
-    <div class="hdr">
+  <div class="ah-screen ah-screen--over">
+    <div class="ah-hdr">
       <button class="back" onclick={() => router.back('/people')} aria-label="Back">←</button>
-      <span class="ah-small-caps c-muted grow">person</span>
+      <span class="ah-small-caps c-sec grow">person</span>
       {#if p.id !== SELF_ID}
         <div class="row" style="gap:8px">
-          <button class="pill outline" onclick={() => app.openAddPerson(p.id)}>Rename</button>
-          <button class="pill outline" onclick={() => app.confirm('deletePerson', { personId: p.id })}>Remove</button>
+          <button class="ah-pill ah-pill--outline ah-hit" onclick={() => app.openAddPerson(p.id)}>Rename</button>
+          <button class="ah-pill ah-pill--outline ah-hit" onclick={() => app.confirm('deletePerson', { personId: p.id })}>Remove</button>
         </div>
       {/if}
     </div>
-    <div class="scroll" style="padding-top:8px;gap:16px">
+    <div class="ah-scroll" style="padding-top:8px;gap:16px">
       <div class="col" style="align-items:center;gap:10px;padding:8px 0 4px">
-        <span class="mono" style="width:64px;height:64px;font-size:40px">{p.name.charAt(0)}</span>
+        <span class="ah-mono" style="width:64px;height:64px;font-size:var(--size-4xl)">{p.name.charAt(0)}</span>
         <span class="ah-heading-m c-head">{p.name}</span>
         <span class="ah-caption c-sec">{personSummary(p.name, app.data.cards, app.owner)}</span>
-        <div><button class="pill outline" onclick={() => app.startGuess(p.name, 'request', '/person/' + p.id)}>{S.guess.title}</button></div>
+        <div><button class="ah-pill ah-pill--outline ah-hit" onclick={() => app.startGuess(p.name, 'request', '/person/' + p.id)}>{S.guess.title}</button></div>
         {#if links}
-          <span class="row" title="entangled needs" style="color:var(--peacock-700);gap:5px;padding:4px 10px;border-radius:999px;background:var(--surface-sunk)"><Icon name="link" size={13} /><span class="ah-micro-caps">{links} {links === 1 ? 'entangled need' : 'entangled needs'}</span></span>
+          <span class="ah-micro-caps c-sec">{links} {links === 1 ? 'entangled need' : 'entangled needs'}</span>
         {/if}
       </div>
       {#if needs.length}
-        <span class="caps rule">Needs you've named together</span>
+        <span class="ah-caps ah-caps--rule">Needs you've named together</span>
         <div class="row wrap" style="gap:7px">
           {#each needs as n (n.id)}
-            <button class="pill" onclick={() => router.go('/need/' + n.id)}><span class="dot" style="background:{tierDot(app.tierOf(n.id))}"></span>{n.word}</button>
+            <button class="ah-pill ah-hit" onclick={() => router.go('/need/' + n.id)}><span class="ah-pill__dot" style="background:{tierDot(app.tierOf(n.id))}"></span>{n.word}</button>
           {/each}
         </div>
       {/if}
       {#if drafts.length}
-        <span class="caps rule">Drafts · {drafts.length}</span>
-        <span class="ah-caption c-faint">Not sent yet. Tap one to carry on.</span>
+        <span class="ah-caps ah-caps--rule">Drafts · {drafts.length}</span>
+        <span class="ah-caption c-sec">Not sent yet. Tap one to carry on.</span>
         {#each drafts as c (c.id)}
-          <div class="card list p0"><CardRow card={c} compact /></div>
+          <div class="ah-card ah-card--list ah-card--p0"><CardRow card={c} compact /></div>
         {/each}
       {/if}
-      <span class="caps rule">Cards together</span>
+      <span class="ah-caps ah-caps--rule">Cards together</span>
       {#if cards.length}
         {#each cards as c (c.id)}
-          <div class="card list p0"><CardRow card={c} compact /></div>
+          <div class="ah-card ah-card--list ah-card--p0"><CardRow card={c} compact /></div>
         {/each}
       {:else}
-        <span class="ah-caption c-faint">Nothing finished with them yet.</span>
+        <span class="ah-caption c-sec">Nothing finished with them yet.</span>
       {/if}
     </div>
   </div>

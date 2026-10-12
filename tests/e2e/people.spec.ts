@@ -104,7 +104,7 @@ test('the summary step says who the card is for, and can change it', async ({ pa
 test('editing a card offers no person picker, on either step', async ({ page }) => {
   await page.goto('/?demo');
   await page.locator('.tabbar .tab', { hasText: 'Cards' }).click();
-  await page.locator('.card.list', { hasText: 'worked through lunch' }).first().click();
+  await page.locator('.ah-card--list', { hasText: 'worked through lunch' }).first().click();
   await page.getByRole('button', { name: 'Edit', exact: true }).click();
 
   // step 0 no longer offers the chips, so a recipient only changes through the card screen

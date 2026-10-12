@@ -1,9 +1,13 @@
 <script lang="ts">
-  let { count, active, onselect, tone }: { count: number; active: number; onselect?: (i: number) => void; tone?: string } = $props();
+  let { count, active, onselect }: { count: number; active: number; onselect?: (i: number) => void } = $props();
 </script>
 
-<div class="dots" class:tap={!!onselect} style={tone ? '--dot:' + tone : ''}>
+<div class="ah-dots">
   {#each Array(count) as _, i}
-    <span class:on={i === active} style={tone ? 'background:' + tone : ''} onclick={() => onselect?.(i)} role={onselect ? 'button' : undefined}></span>
+    {#if onselect}
+      <button type="button" class:is-on={i === active} aria-label={`Step ${i + 1} of ${count}`} aria-current={i === active ? 'step' : undefined} onclick={() => onselect(i)}></button>
+    {:else}
+      <span class:is-on={i === active}></span>
+    {/if}
   {/each}
 </div>

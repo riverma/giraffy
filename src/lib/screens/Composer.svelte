@@ -193,12 +193,12 @@
 </script>
 
 {#if cm}
-  <div class="screen comp">
-    <div class="hdr" style="justify-content:space-between;padding-bottom:10px">
-      <button class="plain" style="font-size:19px;color:var(--text-secondary);padding:4px 10px 4px 0" onclick={() => app.closeComposer()} aria-label="Close">×</button>
+  <div class="ah-screen comp">
+    <div class="ah-hdr" style="justify-content:space-between;padding-bottom:10px">
+      <button class="plain ah-hit" style="font-size:var(--size-lg);color:var(--text-secondary);padding:4px 10px 4px 0" onclick={() => app.closeComposer()} aria-label="Close">×</button>
       <Dots count={seq.length} active={pos} onselect={(i) => go(seq[Math.max(0, Math.min(seq.length - 1, i))])} />
       {#if app.data.coaching}
-        <button class="pill outline" class:active={cm.quiet} onclick={toggleCoaching}>
+        <button class="ah-pill ah-pill--outline ah-hit" class:is-active={cm.quiet} aria-pressed={cm.quiet} onclick={toggleCoaching}>
           {cm.quiet ? 'coaching off' : 'coaching on'}
         </button>
       {/if}
@@ -208,48 +208,48 @@
         <span class="ah-caption c-sec" style="font-style:italic">{editingTheirs ? S.draft.theirs(voice) : S.guess.voice(voice)}</span>
       </div>
     {/if}
-    <div class="scroll" style="padding:8px var(--gutter) 24px;gap:16px;--scroll-tail:0">
+    <div class="ah-scroll" style="padding:8px var(--gutter) 24px;gap:16px;--scroll-tail:0">
       {#if cm.step === 0}
         <div class="col" style="gap:20px;padding-top:8px">
           <div class="ah-heading-m c-head">{editingTheirs ? voice + "'s draft" : voice ? S.guess.title : cm.editId ? 'Editing a card' : 'A new card'}</div>
           <div class="col" style="gap:10px">
-            <span class="caps">What kind</span>
+            <span class="ah-caps">What kind</span>
             <div class="row" style="gap:8px">
-              <button class="chip" class:selected={cm.kind === 'request'} onclick={() => setKind('request')}>a request</button>
-              <button class="chip" class:selected={cm.kind === 'gratitude'} onclick={() => setKind('gratitude')}>a gratitude</button>
+              <button class="ah-chip ah-hit" class:is-selected={cm.kind === 'request'} aria-pressed={cm.kind === 'request'} onclick={() => setKind('request')}>a request</button>
+              <button class="ah-chip ah-hit" class:is-selected={cm.kind === 'gratitude'} aria-pressed={cm.kind === 'gratitude'} onclick={() => setKind('gratitude')}>a gratitude</button>
             </div>
           </div>
         {#if cm.asPerson !== null}
           <div class="col" style="gap:10px">
-            <span class="caps">{S.guess.whose}</span>
-            <span class="ah-caption c-muted" style="margin-top:-4px">{S.guess.whoseHint}</span>
+            <span class="ah-caps">{S.guess.whose}</span>
+            <span class="ah-caption c-sec" style="margin-top:-4px">{S.guess.whoseHint}</span>
             <div class="row wrap" style="gap:8px">
               {#each chipNames.filter((n) => n !== SELF_NAME) as n (n)}
-                <button class="chip" class:selected={cm.asPerson === n} onclick={() => { if (cm) { cm.asPerson = n; touch(); } }}>{n}</button>
+                <button class="ah-chip ah-hit" class:is-selected={cm.asPerson === n} aria-pressed={cm.asPerson === n} onclick={() => { if (cm) { cm.asPerson = n; touch(); } }}>{n}</button>
               {/each}
             </div>
-            <label class="field"><input value={chipNames.includes(cm.asPerson ?? '') ? '' : cm.asPerson ?? ''} oninput={(e) => { if (cm) { cm.asPerson = e.currentTarget.value; touch(); } }} placeholder="Or a new name…" autocomplete="off" /></label>
+            <label class="ah-field"><input value={chipNames.includes(cm.asPerson ?? '') ? '' : cm.asPerson ?? ''} oninput={(e) => { if (cm) { cm.asPerson = e.currentTarget.value; touch(); } }} placeholder="Or a new name…" autocomplete="off" /></label>
           </div>
         {:else if !cm.editId}
           <div class="col" style="gap:10px">
-            <span class="caps">Who is it about?</span>
-            <span class="ah-caption c-muted" style="margin-top:-4px">Pick more than one and the same card is written for each of them.</span>
+            <span class="ah-caps">Who is it about?</span>
+            <span class="ah-caption c-sec" style="margin-top:-4px">Pick more than one and the same card is written for each of them.</span>
             <div class="row wrap" style="gap:8px">
               {#each chipNames as n (n)}
-                <button class="chip" class:selected={cm.persons.includes(n)} onclick={() => pickPerson(n)}>{n}</button>
+                <button class="ah-chip ah-hit" class:is-selected={cm.persons.includes(n)} aria-pressed={cm.persons.includes(n)} onclick={() => pickPerson(n)}>{n}</button>
               {/each}
             </div>
-            <label class="field"><input bind:value={cm.newPerson} oninput={touch} onchange={commitNewPerson} placeholder="Or a new name…" autocomplete="off" /></label>
+            <label class="ah-field"><input bind:value={cm.newPerson} oninput={touch} onchange={commitNewPerson} placeholder="Or a new name…" autocomplete="off" /></label>
             {#if people.length > 1}
               <span class="ah-caption c-sec">{people.length} cards will be written, one each for {listNames(people)}.</span>
             {/if}
           </div>
         {/if}
-          <label class="field"><span class="lbl">context</span><input bind:value={cm.context} oninput={touch} placeholder="About last night's dinner" autocomplete="off" /></label>
+          <label class="ah-field"><span class="ah-field__label">context</span><input bind:value={cm.context} oninput={touch} placeholder="About last night's dinner" autocomplete="off" /></label>
         </div>
       {:else if cm.step === 1}
         <div class="col" style="gap:14px;padding-top:8px">
-          <span class="caps rule">Observation</span>
+          <span class="ah-caps ah-caps--rule">Observation</span>
           <div class="ah-pull-quote c-head">{voice
             ? (cm.kind === 'gratitude'
               ? 'What might ' + them + ' say you did? Write the moment as they might put it, in their words.'
@@ -259,13 +259,13 @@
             : "What happened? Share just what you saw or heard, the way a caring friend who watched the moment, but wasn't part of it, might retell it."}</div>
           <textarea class="ta" rows="5" bind:value={cm.observation} oninput={touch} placeholder="When I saw…"></textarea>
           <Nudges nudges={obsNudges} />
-          <div><button class="pill outline" class:active={cm.showExamples} onclick={() => { cm.showExamples = !cm.showExamples; touch(); }}>Show me examples</button></div>
+          <div><button class="ah-pill ah-pill--outline ah-hit" class:is-active={cm.showExamples} aria-pressed={cm.showExamples} onclick={() => { cm.showExamples = !cm.showExamples; touch(); }}>Show me examples</button></div>
           {#if cm.showExamples}
-            <div class="card sunk" style="padding:16px">
+            <div class="ah-card ah-card--sunk" style="padding:16px">
               <div class="col" style="gap:11px">
                 {#each OBS_EXAMPLES[cm.kind] as [ok, text]}
                   <div class="col" style="gap:2px">
-                    <span class="ah-micro-caps" style="color:{ok ? 'var(--bodhi-600)' : 'var(--clay-600)'}">{ok ? 'an observation' : cm.kind === 'gratitude' ? 'carries evaluation' : 'carries judgment'}</span>
+                    <span class="ah-micro-caps" style="color:{ok ? 'var(--accent-success)' : 'var(--accent-warning)'}">{ok ? 'an observation' : cm.kind === 'gratitude' ? 'carries evaluation' : 'carries judgment'}</span>
                     <span class="ah-caption" class:c-body={ok} class:c-sec={!ok}>{text}</span>
                   </div>
                 {/each}
@@ -275,73 +275,72 @@
         </div>
       {:else if cm.step === 2}
         <div class="col" style="gap:14px;padding-top:8px">
-          <span class="caps rule">Feelings</span>
+          <span class="ah-caps ah-caps--rule">Feelings</span>
           <div class="ah-pull-quote c-head">{voice ? 'When that happened, what might ' + them + ' have felt?' : 'When that happened, what did you feel, in you?'}</div>
           {#if cm.feelings.length}
             <div class="row wrap" style="gap:7px">
-              {#each cm.feelings as w (w)}<button class="pill active" onclick={() => toggleFeeling(w)}>{w}</button>{/each}
+              {#each cm.feelings as w (w)}<button class="ah-pill is-active ah-hit" onclick={() => toggleFeeling(w)}>{w}</button>{/each}
             </div>
           {/if}
           <div class="row" style="gap:8px">
-            <label class="field grow"><input bind:value={cm.feelSearch} oninput={touch} placeholder="Search feelings" autocomplete="off" /></label>
-            <button class="pill outline" class:active={cm.half === 'unmet'} onclick={() => { cm.half = 'unmet'; touch(); }}>unmet</button>
-            <button class="pill outline" class:active={cm.half === 'met'} onclick={() => { cm.half = 'met'; touch(); }}>met</button>
+            <label class="ah-field grow"><input bind:value={cm.feelSearch} oninput={touch} placeholder="Search feelings" autocomplete="off" /></label>
+            <button class="ah-pill ah-pill--outline ah-hit" class:is-active={cm.half === 'unmet'} aria-pressed={cm.half === 'unmet'} onclick={() => { cm.half = 'unmet'; touch(); }}>unmet</button>
+            <button class="ah-pill ah-pill--outline ah-hit" class:is-active={cm.half === 'met'} aria-pressed={cm.half === 'met'} onclick={() => { cm.half = 'met'; touch(); }}>met</button>
           </div>
           {#if feelQuery}
             <div class="row wrap" style="gap:7px">
-              {#each feelResults as w (w)}<button class="chip" class:selected={cm.feelings.includes(w)} onclick={() => toggleFeeling(w)}>{w}</button>{/each}
+              {#each feelResults as w (w)}<button class="ah-chip ah-hit" class:is-selected={cm.feelings.includes(w)} aria-pressed={cm.feelings.includes(w)} onclick={() => toggleFeeling(w)}>{w}</button>{/each}
             </div>
           {:else}
             <div class="col" style="gap:8px">
               {#each FEELINGS[cm.half] as fam (fam.name)}
-                <button class="card list tap fam" onclick={() => { cm.expandedFamily = cm.expandedFamily === fam.name ? null : fam.name; touch(); }}>
-                  <span style="width:9px;height:9px;border-radius:99px;background:{fam.color};flex-shrink:0"></span>
+                <button class="ah-card ah-card--list is-tappable fam" onclick={() => { cm.expandedFamily = cm.expandedFamily === fam.name ? null : fam.name; touch(); }}>
                   <span class="ah-title-m c-head grow">{fam.name}</span>
-                  <span class="ah-caption c-faint">{cm.expandedFamily === fam.name ? '−' : '+'}</span>
+                  <span class="ah-caption c-sec">{cm.expandedFamily === fam.name ? '−' : '+'}</span>
                 </button>
                 {#if cm.expandedFamily === fam.name}
                   <div class="row wrap" style="gap:7px;padding:2px 4px 8px">
-                    {#each fam.words as w (w)}<button class="chip" class:selected={cm.feelings.includes(w)} onclick={() => toggleFeeling(w)}>{w}</button>{/each}
+                    {#each fam.words as w (w)}<button class="ah-chip ah-hit" class:is-selected={cm.feelings.includes(w)} aria-pressed={cm.feelings.includes(w)} onclick={() => toggleFeeling(w)}>{w}</button>{/each}
                   </div>
                 {/if}
               {/each}
             </div>
           {/if}
           <div class="row" style="gap:8px;align-items:flex-end">
-            <label class="field grow"><span class="lbl">a word of your own</span><input bind:value={cm.customFeeling} oninput={touch} placeholder="…" autocomplete="off" onkeydown={(e) => e.key === 'Enter' && addCustomFeeling()} /></label>
-            <button class="btn ghost sm" onclick={addCustomFeeling}>Add</button>
+            <label class="ah-field grow"><span class="ah-field__label">a word of your own</span><input bind:value={cm.customFeeling} oninput={touch} placeholder="…" autocomplete="off" onkeydown={(e) => e.key === 'Enter' && addCustomFeeling()} /></label>
+            <button class="ah-btn ah-btn--ghost ah-btn--sm ah-hit" onclick={addCustomFeeling}>Add</button>
           </div>
           <Nudges nudges={feelNudges} suggests={feelSuggests} onsuggest={addFeeling} />
         </div>
       {:else if cm.step === 3}
         <div class="col" style="gap:14px;padding-top:8px">
-          <span class="caps rule">Needs</span>
+          <span class="ah-caps ah-caps--rule">Needs</span>
           <div class="ah-pull-quote c-head">{voice
             ? (cm.kind === 'gratitude' ? 'Which of ' + them + "'s needs might have been met?" : 'Which of ' + them + "'s needs might not be met?")
             : cm.kind === 'gratitude' ? 'Which of your needs were met? Try completing: I need… or I value…' : 'Which of your needs are not being met? Try completing: I need… or I value…'}</div>
           {#if cm.asPerson === null && Object.keys(app.data.needTiers).length}
-            <div class="ah-caption c-faint" style="font-style:italic;margin-top:-6px">Dots carry how each need felt at your last check-in.</div>
+            <div class="ah-caption c-sec" style="font-style:italic;margin-top:-6px">Dots carry how each need felt at your last check-in.</div>
           {/if}
           {#if cm.needs.length}
             <div class="row wrap" style="gap:7px">
-              {#each cm.needs as w (w)}<button class="pill active" onclick={() => removeNeed(w)}><span class="dot" style="background:var(--saffron-500)"></span>{w}</button>{/each}
+              {#each cm.needs as w (w)}<button class="ah-pill is-active ah-hit" onclick={() => removeNeed(w)}><span class="ah-pill__dot" style="background:var(--accent-primary)"></span>{w}</button>{/each}
             </div>
           {/if}
           <div class="col" style="gap:8px">
             {#each app.vocab.areas as cat (cat.name)}
-              <button class="card list tap fam" onclick={() => { cm.expandedCat = cm.expandedCat === cat.name ? null : cat.name; touch(); }}>
+              <button class="ah-card ah-card--list is-tappable fam" onclick={() => { cm.expandedCat = cm.expandedCat === cat.name ? null : cat.name; touch(); }}>
                 <span class="ah-title-m c-head grow">{cat.name}</span>
-                <span class="ah-caption c-faint">{cm.expandedCat === cat.name ? '−' : '+'}</span>
+                <span class="ah-caption c-sec">{cm.expandedCat === cat.name ? '−' : '+'}</span>
               </button>
               {#if cm.expandedCat === cat.name}
                 <div class="row wrap" style="gap:7px;padding:2px 4px 8px">
                   {#each cat.needs as n (n.id)}
                     {@const cs = chipStyle(linkedNeedId(cm, n.word) === n.id, cm.asPerson !== null ? null : app.tierOf(n.id))}
-                    <button class="chip" title={app.meaningOf(n.id)} style="background:{cs.bg};color:{cs.color};box-shadow:{cs.shadow}"
-                      onclick={() => { touchedNeed = { word: n.word, meaning: app.meaningOf(n.id) }; toggleNeed(n); }}><span class="dot" style="background:{cs.dot}"></span>{n.word}</button>
+                    <button class="ah-chip ah-hit" class:is-selected={cs.selected} aria-pressed={cs.selected} style={cs.style}
+                      onclick={() => { touchedNeed = { word: n.word, meaning: app.meaningOf(n.id) }; toggleNeed(n); }}><span class="ah-chip__dot" style="background:{cs.dot}"></span>{n.word}</button>
                   {/each}
                   {#if !cat.needs.length}
-                    <span class="ah-caption c-faint">Nothing under {cat.name} yet.</span>
+                    <span class="ah-caption c-sec">Nothing under {cat.name} yet.</span>
                   {/if}
                 </div>
               {/if}
@@ -351,37 +350,37 @@
             <span class="ah-caption c-sec"><strong>{touchedNeed.word}</strong>: {touchedNeed.meaning}</span>
           {/if}
           <div class="row" style="gap:6px">
-            <button class="pill outline" onclick={() => { cm.customNeed = 'I need '; touch(); }}>I need…</button>
-            <button class="pill outline" onclick={() => { cm.customNeed = 'I value '; touch(); }}>I value…</button>
+            <button class="ah-pill ah-pill--outline ah-hit" onclick={() => { cm.customNeed = 'I need '; touch(); }}>I need…</button>
+            <button class="ah-pill ah-pill--outline ah-hit" onclick={() => { cm.customNeed = 'I value '; touch(); }}>I value…</button>
           </div>
           <div class="row" style="gap:8px;align-items:flex-end">
-            <label class="field grow"><span class="lbl">in your own words</span><input bind:value={cm.customNeed} oninput={touch} placeholder="…" autocomplete="off" onkeydown={(e) => e.key === 'Enter' && addCustomNeed()} /></label>
-            <button class="btn ghost sm" onclick={addCustomNeed}>Add</button>
+            <label class="ah-field grow"><span class="ah-field__label">in your own words</span><input bind:value={cm.customNeed} oninput={touch} placeholder="…" autocomplete="off" onkeydown={(e) => e.key === 'Enter' && addCustomNeed()} /></label>
+            <button class="ah-btn ah-btn--ghost ah-btn--sm ah-hit" onclick={addCustomNeed}>Add</button>
           </div>
           {#each looseNeeds as w (w)}
             <div class="row wrap" style="gap:8px;align-items:baseline">
               <span class="ah-caption c-sec"><strong>{w}</strong> is not in your needs yet.</span>
-              <button class="plain ah-caption c-sec" style="text-decoration:underline" onclick={() => app.openAddNeed(undefined, w)}>Add it under an area</button>
+              <button class="plain ah-caption c-sec ah-hit" style="text-decoration:underline" onclick={() => app.openAddNeed(undefined, w)}>Add it under an area</button>
             </div>
           {/each}
           <Nudges nudges={needNudges} />
         </div>
       {:else if cm.step === 4}
         <div class="col" style="gap:14px;padding-top:8px">
-          <span class="caps rule">Request</span>
+          <span class="ah-caps ah-caps--rule">Request</span>
           <div class="ah-pull-quote c-head">{voice
             ? 'What might ' + them + ' ask of you? A request is a gift of clarity, not an obligation. You would still be free to say no.'
             : 'What would you like to ask? A request is a gift of clarity, not an obligation. The other person is free to say no.'}</div>
           <div class="row wrap" style="gap:6px">
-            {#each starters as s}<button class="pill outline" onclick={() => { cm.request = s.replace('…', ' '); touch(); }}>{s}</button>{/each}
+            {#each starters as s}<button class="ah-pill ah-pill--outline ah-hit" onclick={() => { cm.request = s.replace('…', ' '); touch(); }}>{s}</button>{/each}
           </div>
           <textarea class="ta" rows="4" bind:value={cm.request} oninput={touch} placeholder="Would you be willing to…"></textarea>
           <Nudges nudges={reqNudges} />
-          <p class="quote md bordered c-sec">If a yes would be rewarded with warmth you'd otherwise withhold, or a no met with ill feeling, it isn't a request yet. It's a demand.</p>
+          <p class="ah-quote ah-quote--md ah-quote--bordered c-sec">If a yes would be rewarded with warmth you'd otherwise withhold, or a no met with ill feeling, it isn't a request yet. It's a demand.</p>
         </div>
       {:else}
         <div class="col" style="gap:14px;padding-top:8px">
-          <span class="caps rule">Your words, assembled</span>
+          <span class="ah-caps ah-caps--rule">Your words, assembled</span>
           <textarea class="ta synth" rows="8" value={summaryShown}
             oninput={(e) => { if (cm) { cm.summary = e.currentTarget.value; cm.summaryCustom = true; touch(); } }}></textarea>
           <Nudges nudges={synthNudges} />
@@ -390,41 +389,41 @@
           {/if}
           {#if cm.asPerson === null && !cm.editId}
             <div class="col hairline" style="gap:10px;padding-top:12px">
-              <span class="caps">This card is for</span>
+              <span class="ah-caps">This card is for</span>
               <div class="row wrap" style="gap:8px">
                 {#each chipNames as n (n)}
-                  <button class="chip" class:selected={cm.persons.includes(n)} onclick={() => pickPerson(n)}>{n}</button>
+                  <button class="ah-chip ah-hit" class:is-selected={cm.persons.includes(n)} aria-pressed={cm.persons.includes(n)} onclick={() => pickPerson(n)}>{n}</button>
                 {/each}
               </div>
-              <label class="field"><input bind:value={cm.newPerson} oninput={touch} onchange={commitNewPerson} placeholder="Or a new name…" autocomplete="off" /></label>
+              <label class="ah-field"><input bind:value={cm.newPerson} oninput={touch} onchange={commitNewPerson} placeholder="Or a new name…" autocomplete="off" /></label>
               {#if people.length > 1}
                 <span class="ah-caption c-sec">{people.length} cards will be written, one each for {listNames(people)}.</span>
               {/if}
             </div>
           {/if}
           <div class="row wrap" style="gap:8px">
-            <span class="ah-caption c-muted">Something's off?</span>
-            {#if cm.asPerson === null && !cm.editId}<button class="pill outline" onclick={() => go(0)}>who</button>{/if}
-            <button class="pill outline" onclick={() => go(1)}>observation</button>
-            <button class="pill outline" onclick={() => go(2)}>feelings</button>
-            <button class="pill outline" onclick={() => go(3)}>needs</button>
-            {#if cm.kind === 'request'}<button class="pill outline" onclick={() => go(4)}>request</button>{/if}
+            <span class="ah-caption c-sec">Something's off?</span>
+            {#if cm.asPerson === null && !cm.editId}<button class="ah-pill ah-pill--outline ah-hit" onclick={() => go(0)}>who</button>{/if}
+            <button class="ah-pill ah-pill--outline ah-hit" onclick={() => go(1)}>observation</button>
+            <button class="ah-pill ah-pill--outline ah-hit" onclick={() => go(2)}>feelings</button>
+            <button class="ah-pill ah-pill--outline ah-hit" onclick={() => go(3)}>needs</button>
+            {#if cm.kind === 'request'}<button class="ah-pill ah-pill--outline ah-hit" onclick={() => go(4)}>request</button>{/if}
           </div>
           <div class="col" style="gap:8px">
-            <button class="btn wide" disabled={cm.asPerson === null && !canFinish} onclick={() => app.saveComposer()}>{saveLabel}</button>
+            <button class="ah-btn ah-btn--wide ah-hit" disabled={cm.asPerson === null && !canFinish} onclick={() => app.saveComposer()}>{saveLabel}</button>
             {#if cm.asPerson === null}
-              <button class="btn ghost wide" onclick={sendAsIs}>{S.composer.sendAsIs}</button>
+              <button class="ah-btn ah-btn--ghost ah-btn--wide ah-hit" onclick={sendAsIs}>{S.composer.sendAsIs}</button>
             {/if}
           </div>
         </div>
       {/if}
     </div>
-    <div class="foot">
-      {#if pos > 0}<button class="btn ghost" onclick={() => go(seq[pos - 1])}>Back</button>{/if}
+    <div class="ah-footer row" style="gap:10px;justify-content:space-between">
+      {#if pos > 0}<button class="ah-btn ah-btn--ghost ah-hit" onclick={() => go(seq[pos - 1])}>Back</button>{/if}
       <div class="grow"></div>
       {#if cm.step !== 5}
-        <button class="pill outline" onclick={() => go(5)}>See it so far</button>
-        <button class="btn" disabled={!canNext} onclick={next}>Continue</button>
+        <button class="ah-pill ah-pill--outline ah-hit" onclick={() => go(5)}>See it so far</button>
+        <button class="ah-btn ah-hit" disabled={!canNext} onclick={next}>Continue</button>
       {/if}
     </div>
   </div>
@@ -432,10 +431,8 @@
 
 <style>
   .comp { z-index: 20; }
-  .ta { font-family: var(--font-display); font-style: italic; font-size: 16px; line-height: 1.5; color: var(--text-body); background: var(--surface-elevated); border: none; border-radius: 16px; padding: 16px; width: 100%; box-shadow: var(--shadow-sm); resize: none; outline: none; }
-  .ta::placeholder { color: var(--text-faint); }
-  .ta.synth { font-size: 18px; line-height: 1.45; color: var(--text-heading); border-radius: 18px; padding: 20px; box-shadow: var(--shadow-md); }
+  .ta { font-family: var(--font-display); font-style: italic; font-size:var(--size-reading); line-height: 1.5; color: var(--text-body); background: var(--surface-elevated); border: none; border-radius:var(--radius-lg); padding: 16px; width: 100%; box-shadow: var(--shadow-sm); resize: none;  }
+  .ta::placeholder { color: var(--text-secondary); }
+  .ta.synth { font-size:var(--size-lg); line-height: 1.45; color: var(--text-heading); border-radius:var(--radius-xl); padding: 20px; box-shadow: var(--shadow-md); }
   .fam { padding: 13px 16px; display: flex; align-items: center; gap: 10px; width: 100%; border: none; font: inherit; text-align: left; }
-  .field input { font-family: var(--font-body); font-size: 13px; }
-  .foot { padding: 12px var(--gutter) calc(20px + var(--safe-bottom)); display: flex; justify-content: space-between; align-items: center; gap: 10px; border-top: 1px solid var(--border-subtle); background: var(--glass-overlay-strong); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
 </style>

@@ -41,10 +41,10 @@
 
 <nav class="tabbar" bind:this={bar} aria-label="Sections">
   {#each tabs as [id, label]}
-    <button class="tab" class:on={router.tab === id} onclick={() => router.root(TAB_ROOTS[id])}><i></i><span class="ah-micro-caps">{label}</span></button>
+    <button class="tab" class:is-on={router.tab === id} aria-current={router.tab === id ? 'page' : undefined} onclick={() => router.root(TAB_ROOTS[id])}><i></i><span class="ah-micro-caps">{label}</span></button>
   {/each}
   <button class="fab" onclick={() => app.open({ kind: 'new' })} aria-label={S.tabs.new}><span>+</span></button>
   {#each tabs2 as [id, label]}
-    <button class="tab" class:on={router.tab === id} onclick={() => router.root(TAB_ROOTS[id])}><i></i><span class="ah-micro-caps">{label}</span></button>
+    <button class="tab" class:is-on={router.tab === id} aria-current={router.tab === id ? 'page' : undefined} onclick={() => router.root(TAB_ROOTS[id])}><i></i><span class="ah-micro-caps">{label}</span></button>
   {/each}
 </nav>

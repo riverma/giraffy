@@ -73,7 +73,7 @@ test('a page whose script will not load says so, rather than showing nothing', a
   // and it says the words are safe, because that is the first thing anyone would fear
   await expect(fallback).toContainText('stored on this device');
   // the app never mounted, so there is no screen behind it
-  expect(await page.locator('.screen').count()).toBe(0);
+  expect(await page.locator('.ah-screen').count()).toBe(0);
 });
 
 test('the boot message stands down once the app mounts', async ({ page }) => {

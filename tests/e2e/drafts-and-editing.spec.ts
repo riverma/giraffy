@@ -74,7 +74,7 @@ test('a draft can be discarded from the Cards list, and undo brings it back', as
 
   await page.locator('.tabbar .tab', { hasText: 'Cards' }).click();
   await page.getByRole('button', { name: 'Edit', exact: true }).click();
-  await page.locator('.card.list', { hasText: 'When the rota went up without me' }).getByRole('button', { name: 'Discard', exact: true }).click();
+  await page.locator('.ah-card--list', { hasText: 'When the rota went up without me' }).getByRole('button', { name: 'Discard', exact: true }).click();
   await page.getByRole('button', { name: 'Discard it' }).click();
   await expect(page.getByText('Drafts ·')).toHaveCount(0);
 
@@ -112,7 +112,7 @@ test('a need of your own shows up everywhere, and a hidden one drops out', async
 
   // add one under Play
   await page.getByRole('button', { name: 'Edit', exact: true }).click();
-  await page.locator('.card.list', { hasText: 'Play' }).first().click();
+  await page.locator('.ah-card--list', { hasText: 'Play' }).first().click();
   await page.getByRole('button', { name: '+ a need under Play' }).click();
   await page.getByPlaceholder('being consulted').fill('kite flying');
   await page.getByRole('button', { name: 'Add it' }).click();
@@ -129,14 +129,14 @@ test('a need of your own shows up everywhere, and a hidden one drops out', async
   await page.getByText('Tired', { exact: true }).click();
   await page.getByText('weary', { exact: true }).click();
   await page.getByRole('button', { name: 'Continue' }).click();
-  await page.locator('.card.list.fam', { hasText: 'Play' }).click();
-  await expect(page.locator('.chip', { hasText: 'kite flying' })).toBeVisible();
+  await page.locator('.ah-card--list.fam', { hasText: 'Play' }).click();
+  await expect(page.locator('.ah-chip', { hasText: 'kite flying' })).toBeVisible();
   await page.getByRole('button', { name: 'Close' }).click();
 
   // hide a need that ships, and show it again from Settings
   await page.locator('.tabbar .tab', { hasText: 'Needs' }).click();
   await page.getByRole('button', { name: 'Edit', exact: true }).click();
-  await page.locator('.card.list', { hasText: 'Autonomy' }).first().click();
+  await page.locator('.ah-card--list', { hasText: 'Autonomy' }).first().click();
   await page.locator('.need-rows > div', { hasText: 'choice' }).first().getByRole('button', { name: 'Hide', exact: true }).click();
   await page.getByRole('button', { name: 'Hide it' }).click();
   // choice was one of the needs marked in the sample, so both counts come down by one
@@ -162,7 +162,7 @@ test('a person can be renamed from the People tab, on their cards too', async ({
 
   // the cards they are on carry the new name
   await page.locator('.tabbar .tab', { hasText: 'Cards' }).click();
-  await page.locator('.card.list', { hasText: 'dishes from last night' }).first().click();
+  await page.locator('.ah-card--list', { hasText: 'dishes from last night' }).first().click();
   await expect(page.getByText('to Sameera')).toBeVisible();
 
   await page.locator('.tabbar .tab', { hasText: 'People' }).click();
@@ -173,7 +173,7 @@ test('a person can be renamed from the People tab, on their cards too', async ({
 test('a card written for one person can be pointed at another', async ({ page }) => {
   await page.goto('/?demo');
   await page.locator('.tabbar .tab', { hasText: 'Cards' }).click();
-  await page.locator('.card.list', { hasText: 'worked through lunch' }).first().click();
+  await page.locator('.ah-card--list', { hasText: 'worked through lunch' }).first().click();
   await expect(page.getByText('request · to Myself')).toBeVisible();
 
   await page.getByRole('button', { name: 'Change who it is for' }).click();

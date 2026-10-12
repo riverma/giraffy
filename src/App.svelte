@@ -5,7 +5,6 @@
   import { seedData } from '$lib/data/samples';
   import TabBar from '$lib/ui/TabBar.svelte';
   import Toast from '$lib/ui/Toast.svelte';
-  import InstallBar from '$lib/ui/InstallBar.svelte';
   import Onboarding from '$lib/screens/Onboarding.svelte';
   import NeedsHome from '$lib/screens/NeedsHome.svelte';
   import NeedDetail from '$lib/screens/NeedDetail.svelte';
@@ -20,7 +19,6 @@
   import About from '$lib/screens/About.svelte';
   import Import from '$lib/screens/Import.svelte';
   import Sheets from '$lib/sheets/Sheets.svelte';
-  import UpdateBar from '$lib/ui/UpdateBar.svelte';
 
   onMount(async () => {
     router.start();
@@ -71,8 +69,6 @@
   {#if showTabs}
     <TabBar />
   {/if}
-  <InstallBar />
-  <UpdateBar />
   <Sheets />
   <Toast />
 {/if}

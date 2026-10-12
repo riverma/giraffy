@@ -17,6 +17,7 @@ import { areaProblem, buildVocab, customNeedId, meaningOf, vocabProblem, type Vo
 import type { Need } from '$lib/data/needs';
 import type { FeelingHalf } from '$lib/data/feelings';
 import { AUTO_BACKUP_NAME, folderPermission, pickBackupFolder, supportsFolderBackup, writeInto, type FolderPermission } from '$lib/core/filebackup';
+import { applyTheme, type Theme } from '$lib/theme';
 import { GiraffyDB, loadAll, loadBackupDir, saveBackupDir, saveData, savePrefs, wipe, emptyData, DEFAULT_PREFS, type Prefs } from './db';
 import { router } from './router.svelte';
 import { S } from '$lib/strings';
@@ -134,7 +135,6 @@ export class App {
   private lastAutoAt = 0;
   private autoBusy = false;
   private backupDirty = false;
-  private backupWarned = false;
 
   constructor(db?: GiraffyDB) {
     this.db = db ?? new GiraffyDB();
@@ -154,6 +154,7 @@ export class App {
       this.prefs = loaded.prefs;
       this.adoptDraft();
     }
+    applyTheme(this.prefs.theme === 'night' ? 'night' : 'day');
     this.ready = true;
     // awaited: a folder chosen while this was still reading would otherwise be forgotten
     await this.adoptBackupFolder();
@@ -210,6 +211,11 @@ export class App {
     if (!this.ready) return;
     const plain = $state.snapshot(this.data) as AppData;
     saveData(this.db, plain).catch((e) => console.error('save failed', e));
+  }
+
+  setTheme(t: Theme): void {
+    applyTheme(t);
+    this.setPrefs({ theme: t });
   }
 
   setPrefs(p: Partial<Prefs>): void {
@@ -1257,7 +1263,8 @@ export class App {
     } catch {
       // usually the permission lapsed while the app was closed; Settings offers it back
       this.backupPerm = 'prompt';
-      if (!this.backupWarned) { this.backupWarned = true; this.toast(S.backup.paused); }
+      // No toast: nothing here is the result of something the person just did. The pause is
+      // shown in Settings, in the Backup section, where the way back is.
     } finally {
       this.autoBusy = false;
     }
@@ -1284,6 +1291,7 @@ export class App {
     this.pendingPrefs = {};
     this.data = emptyData();
     this.prefs = { ...DEFAULT_PREFS };
+    applyTheme('day');
     this.history = [];
     this.redoStack = [];
     this.composer = null;

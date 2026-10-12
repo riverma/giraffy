@@ -8,7 +8,6 @@
   import { S } from '$lib/strings';
   import { peopleOnNeed } from '$lib/core/cards';
   import { fmtDate } from '$lib/core/time';
-  import Icon from '$lib/ui/Icon.svelte';
   import CardRow from '$lib/ui/CardRow.svelte';
 
   let { id }: { id: string } = $props();
@@ -34,71 +33,71 @@
   }
 </script>
 
-<div class="screen over">
-  <div class="hdr">
+<div class="ah-screen ah-screen--over">
+  <div class="ah-hdr">
     <button class="back" onclick={() => router.back('/needs')} aria-label="Back">←</button>
-    <span class="ah-small-caps c-muted grow">{need?.category ?? 'a need'}</span>
-    <button class="iconbtn" class:off={!app.history.length} onclick={() => app.undo()} aria-label="Undo"><Icon name="undo" size={19} /><span>undo</span></button>
+    <span class="ah-small-caps c-sec grow">{need?.category ?? 'a need'}</span>
+    <button class="iconbtn" class:off={!app.history.length} onclick={() => app.undo()} aria-label="Undo"><span>undo</span></button>
   </div>
   {#if !need}
-    <div class="scroll" style="padding-top:8px;gap:16px">
+    <div class="ah-scroll" style="padding-top:8px;gap:16px">
       <div class="col" style="gap:10px;padding-top:8px">
         <span class="ah-heading-m c-head">Not in your needs</span>
         <span class="ah-body-serif c-sec">This need is not in your list. It may have been one you removed.</span>
-        <div><button class="btn ghost sm" onclick={() => router.back('/needs')}>Back to your needs</button></div>
+        <div><button class="ah-btn ah-btn--ghost ah-btn--sm ah-hit" onclick={() => router.back('/needs')}>Back to your needs</button></div>
       </div>
     </div>
   {:else}
-  <div class="scroll" style="padding-top:8px;gap:16px">
+  <div class="ah-scroll" style="padding-top:8px;gap:16px">
     <div class="col" style="gap:8px;padding-top:4px">
       <div class="row" style="gap:12px">
-        <span style="width:13px;height:13px;border-radius:99px;background:{tierDot(tier)};flex-shrink:0"></span>
+        <span style="width:13px;height:13px;border-radius:var(--radius-full);background:{tierDot(tier)};flex-shrink:0"></span>
         <span class="ah-heading-m c-head">{need.word}</span>
       </div>
       <span class="ah-body-serif c-sec">{app.meaningOf(need.id)}</span>
       {#if app.vocab.hiddenIds.has(need.id)}
         <div class="row" style="gap:8px;align-items:baseline">
-          <span class="ah-caption c-faint">Hidden from your list, with everything you marked on it kept.</span>
-          <button class="plain ah-caption c-sec" onclick={() => app.unhideNeed(need.id)}>Show it again</button>
+          <span class="ah-caption c-sec">Hidden from your list, with everything you marked on it kept.</span>
+          <button class="plain ah-caption c-sec ah-hit" onclick={() => app.unhideNeed(need.id)}>Show it again</button>
         </div>
       {:else if need.custom}
         <div class="row" style="gap:8px;align-items:baseline">
-          <span class="ah-caption c-faint">A need of your own, under {need.category}.</span>
-          <button class="plain ah-caption c-sec" onclick={() => app.confirm('deleteNeed', { needId: need.id })}>Remove it</button>
+          <span class="ah-caption c-sec">A need of your own, under {need.category}.</span>
+          <button class="plain ah-caption c-sec ah-hit" onclick={() => app.confirm('deleteNeed', { needId: need.id })}>Remove it</button>
         </div>
       {/if}
     </div>
 
-    <div class="card sunk" style="padding:16px">
+    <div class="ah-card ah-card--sunk" style="padding:16px">
       <div class="col" style="gap:10px">
-        <span class="ah-micro-caps c-muted">How it feels today</span>
+        <span class="ah-micro-caps c-sec">How it feels today</span>
         <div class="row wrap" style="gap:7px">
           {#each TIERS as t}
-            <button class="pill" class:active={tier === t} onclick={() => pick(t)}><span class="dot" style="background:{tierDot(t)}"></span>{tierTitle(t)}</button>
+            <button class="ah-pill ah-hit" class:is-active={tier === t} aria-pressed={tier === t} onclick={() => pick(t)}><span class="ah-pill__dot" style="background:{tierDot(t)}"></span>{tierTitle(t)}</button>
           {/each}
           <div class="grow"></div>
-          {#if tier}<button class="plain ah-caption c-faint" onclick={clear}>clear</button>{/if}
+          {#if tier}<button class="plain ah-caption c-sec ah-hit" onclick={clear}>clear</button>{/if}
         </div>
-        <span class="ah-caption c-faint">{rec ? 'changed ' + fmtDate(rec.changed) + (rec.was ? ' · was ' + tierLabel(rec.was) : '') : 'Unexamined. Tap how it feels today.'}</span>
+        <span class="ah-caption c-sec">{rec ? 'changed ' + fmtDate(rec.changed) + (rec.was ? ' · was ' + tierLabel(rec.was) : '') : 'Unexamined. Tap how it feels today.'}</span>
       </div>
     </div>
 
     <div class="col" style="gap:10px">
-      <div class="rule-row"><span class="ah-small-caps c-muted">Who to reach out to</span></div>
+      <div class="ah-rule-row"><span class="ah-small-caps c-sec">Who to reach out to</span></div>
       {#each people as p (p.name)}
-        <div class="card list p0">
+        <div class="ah-card ah-card--list ah-card--p0">
           <div class="row" style="padding:12px 14px 12px 16px;gap:12px">
-            <span class="mono sunk" style="width:36px;height:36px;font-size:22px">{p.name.charAt(0)}</span>
+            <span class="ah-mono ah-mono--sunk" style="width:36px;height:36px;font-size:var(--size-xl)">{p.name.charAt(0)}</span>
             <div class="col grow" style="gap:3px;min-width:0">
               <span class="ah-title-m c-head">{p.name}</span>
               <span class="ah-caption c-sec">{summary(p.cards.length)}</span>
             </div>
             <div class="col" style="gap:5px;flex-shrink:0;align-items:flex-end">
-              <span class="ah-micro-caps c-faint">write a card</span>
-              <button class="pill outline" onclick={() => app.composeForNeed(need, p.name, router.route.path, 'request')}>Request</button>
-              <button class="pill outline" onclick={() => app.composeForNeed(need, p.name, router.route.path, 'gratitude')}>Gratitude</button>
+              <span class="ah-micro-caps c-sec">write a card</span>
+              <button class="ah-pill ah-pill--outline ah-hit" onclick={() => app.composeForNeed(need, p.name, router.route.path, 'request')}>Request</button>
+              <button class="ah-pill ah-pill--outline ah-hit" onclick={() => app.composeForNeed(need, p.name, router.route.path, 'gratitude')}>Gratitude</button>
               {#if p.name !== SELF_NAME}
-                <button class="pill outline" title={S.guess.lead} onclick={() => app.startGuess(p.name, 'request', router.route.path, need)}>Imagine theirs</button>
+                <button class="ah-pill ah-pill--outline ah-hit" onclick={() => app.startGuess(p.name, 'request', router.route.path, need)}>Imagine theirs</button>
               {/if}
             </div>
           </div>
@@ -109,19 +108,19 @@
       {/each}
       {#if addable.length}
         <div class="row wrap" style="gap:7px;padding:2px 4px">
-          <span class="ah-caption c-muted">+ someone</span>
+          <span class="ah-caption c-sec">+ someone</span>
           {#each addable as p (p.id)}
-            <button class="pill outline" onclick={() => app.addNeedPerson(need.id, p.name)}>{p.name}</button>
+            <button class="ah-pill ah-pill--outline ah-hit" onclick={() => app.addNeedPerson(need.id, p.name)}>{p.name}</button>
           {/each}
         </div>
       {/if}
       {#if people.length}
-        <div class="ah-caption c-faint" style="padding:0 4px">A person with no card yet is fine. It is an intention.</div>
+        <div class="ah-caption c-sec" style="padding:0 4px">A person with no card yet is fine. It is an intention.</div>
       {/if}
     </div>
 
     <div class="col" style="gap:10px">
-      <div class="rule-row"><span class="ah-small-caps c-muted">A private note</span></div>
+      <div class="ah-rule-row"><span class="ah-small-caps c-sec">A private note</span></div>
       <textarea class="note" rows="3" value={app.data.needNotes[need.id] ?? ''} onchange={(e) => app.setNeedNote(need.id, (e.currentTarget as HTMLTextAreaElement).value)} placeholder="Only for you. It never leaves this device."></textarea>
     </div>
   </div>
@@ -130,6 +129,6 @@
 
 <style>
   /* a flex item in a scrolling column, so it must not be squeezed flat by what sits above it */
-  .note { flex-shrink: 0; font-family: var(--font-display); font-style: italic; font-size: 15px; line-height: 1.5; color: var(--text-body); background: var(--surface-elevated); border: none; border-radius: 16px; padding: 14px 16px; width: 100%; box-shadow: var(--shadow-sm); resize: none; outline: none; }
-  .note::placeholder { color: var(--text-faint); }
+  .note { flex-shrink: 0; font-family: var(--font-display); font-style: italic; font-size:var(--size-md); line-height: 1.5; color: var(--text-body); background: var(--surface-elevated); border: none; border-radius:var(--radius-lg); padding: 14px 16px; width: 100%; box-shadow: var(--shadow-sm); resize: none;  }
+  .note::placeholder { color: var(--text-secondary); }
 </style>

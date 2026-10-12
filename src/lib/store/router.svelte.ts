@@ -42,8 +42,9 @@ class Router {
     this.started = true;
     let hash = location.hash;
     if (hash === '#install') {
+      // The launcher's Install button was pressed: land where installing is answered.
       this.installRequested = true;
-      hash = '#/needs';
+      hash = '#/settings';
     }
     const r = parsePath(hash || '/needs');
     history.replaceState({ d: 0 }, '', '#' + r.path);

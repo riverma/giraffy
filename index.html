@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="ahimsa-day">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -14,7 +14,7 @@
     />
     <title>Giraffy</title>
     <meta name="description" content="A Nonviolent Communication companion. Offline, on your own device, with no accounts and no servers." />
-    <meta name="theme-color" content="#fdeedb" />
+    <meta name="theme-color" content="#e7e7e4" />
     <meta name="color-scheme" content="light" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -31,7 +31,7 @@
       #boot-fallback {
         max-width: 34em; margin: 0 auto; padding: 18vh 24px 24px;
         font-family: system-ui, -apple-system, sans-serif; font-size: 16px; line-height: 1.55;
-        color: #4a3f35; background: #fdeedb; min-height: 100vh; box-sizing: border-box;
+        color: #2d3036; background: #e7e7e4; min-height: 100vh; box-sizing: border-box;
       }
       #boot-fallback p { margin: 0 0 14px; }
       /* The app mounts into #app, so anything in there means it started: stand down. */
@@ -39,7 +39,7 @@
     </style>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app" class="ah-app"></div>
     <!-- Shown only while #app is empty, which means the app never mounted: the script did not
          load, or a stale copy of this page asked for a file that is no longer there. Plain
          HTML and CSS on purpose, because the content security policy forbids inline script,

@@ -1,6 +1,6 @@
 {
   "name": "giraffy",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "private": true,
   "description": "A Nonviolent Communication companion. Offline-first, no accounts, no servers.",
   "license": "AGPL-3.0-or-later",
@@ -19,6 +19,7 @@
     "test:e2e": "playwright test",
     "check-licenses": "node scripts/check-licenses.mjs",
     "check-offline": "node scripts/check-offline.mjs",
+    "check-ahimsa": "node scripts/check-ahimsa.mjs",
     "schema:compile": "node scripts/compile-schema.mjs",
     "audit": "scripts/audit.sh",
     "deploy": "scripts/deploy.sh"

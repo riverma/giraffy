@@ -103,12 +103,12 @@ also carries forward any file the previous deploy had and the new one does not.
 **Nothing is pushed without a review.** `scripts/audit.sh` runs a security pass, and
 `scripts/deploy.sh` is a dry run unless you pass `--push`.
 
-**Only the `public` branch is published.** The development history stays on this machine.
-`public` is rebuilt as a single orphan commit for each release, leaving out the design-composer
-runtime files that are not ours to redistribute (`mockup/support.js`, `mockup/ios-frame.jsx`,
-`mockup/_ds/`) and `mockup/uploads/`. Push it by name and nothing else:
-`git push origin public:main`. A `git push --all` would publish what that exclusion exists to
-prevent.
+**What is published.** The design-composer runtime files that are not ours to redistribute
+(`support.js`, `ios-frame.jsx`, `_ds/`, and the uploads) have been removed from the repository,
+so nothing here needs holding back. The development history on this machine still contains
+them from before their removal, so it is not pushed as it stands: `main` carries one commit per
+release, built on top of the one before it, from the tree as it is now. Push it as a normal
+fast-forward: `git push origin public:main`. Never `git push --all`, and never force.
 
 ## Layout
 

@@ -5,7 +5,7 @@ import { expect, test } from '@playwright/test';
 /** A device that has never seen Giraffy, belonging to someone else. */
 async function onboard(page: import('@playwright/test').Page, name: string, at = '/'): Promise<void> {
   await page.goto(at);
-  await page.getByRole('button', { name: 'Setup' }).click();
+  await page.getByRole('button', { name: 'Set up' }).click();
   await page.getByRole('button', { name: 'Continue' }).click();
   await page.getByPlaceholder('A name').fill(name);
   await page.getByRole('button', { name: 'Continue' }).click();
@@ -71,7 +71,7 @@ test('a guess can be sent, and opens on their device as their own draft', async 
   // sending it is offered on the card itself
   await page.locator('.tabbar .tab', { hasText: 'Cards' }).click();
   await expect(page.getByText('Drafts · 1')).toBeVisible();
-  await page.locator('.card.list', { hasText: 'still there in the morning' }).first().click();
+  await page.locator('.ah-card--list', { hasText: 'still there in the morning' }).first().click();
   await page.getByRole('button', { name: 'Send it to Sam' }).click();
   await page.getByRole('button', { name: 'Copy as text' }).click();
   const sent = await page.evaluate(() => navigator.clipboard.readText());
@@ -93,7 +93,7 @@ test('a guess can be sent, and opens on their device as their own draft', async 
   // it is Sam's own draft now, with the words in it
   await sam.locator('.tabbar .tab', { hasText: 'Cards' }).click();
   await expect(sam.getByText('Drafts · 1')).toBeVisible();
-  await sam.locator('.card.list', { hasText: 'still there in the morning' }).first().click();
+  await sam.locator('.ah-card--list', { hasText: 'still there in the morning' }).first().click();
   await expect(sam.getByPlaceholder('When I saw…')).toHaveValue('When the dishes were still there in the morning');
   await theirs.close();
 });
@@ -116,11 +116,11 @@ test('imagined cards have a filter of their own, and keep their own colours', as
 
   // their needs, not yours: every chip sits at unexamined, whatever you marked
   await page.getByText('Autonomy', { exact: true }).click();
-  const chips = page.locator('.chip', { hasText: 'choice' });
-  const dot = await chips.first().locator('.dot').evaluate((el) => getComputedStyle(el).backgroundColor);
+  const chips = page.locator('.ah-chip', { hasText: 'choice' });
+  const dot = await chips.first().locator('.ah-chip__dot').evaluate((el) => getComputedStyle(el).backgroundColor);
   const unexamined = await page.evaluate(() => {
     const probe = document.createElement('span');
-    probe.style.background = 'var(--neutral-400)';
+    probe.style.background = 'var(--text-muted)';
     document.body.appendChild(probe);
     const c = getComputedStyle(probe).backgroundColor;
     probe.remove();
@@ -134,7 +134,7 @@ test('imagined cards have a filter of their own, and keep their own colours', as
   // and the filter finds it, without flipping to Received where drafts do not live
   await page.locator('.tabbar .tab', { hasText: 'Cards' }).click();
   await page.getByRole('button', { name: 'Imagined', exact: true }).click();
-  await expect(page.locator('.card.list', { hasText: 'the dishes were still there' })).toBeVisible();
+  await expect(page.locator('.ah-card--list', { hasText: 'the dishes were still there' })).toBeVisible();
   await expect(page.locator('.tabbar .tab', { hasText: 'Cards' })).toBeVisible();
   await expect(page.getByRole('button', { name: /^Mine · / })).toHaveClass(/active/);
 });

@@ -5,7 +5,7 @@ import { expect, test } from '@playwright/test';
 test('onboarding, a need, and a first card', async ({ page }) => {
   await page.goto('/');
 
-  await page.getByRole('button', { name: 'Setup' }).click();
+  await page.getByRole('button', { name: 'Set up' }).click();
   await page.getByRole('button', { name: 'Continue' }).click();
   await page.getByPlaceholder('A name').fill('Ash');
   await page.getByRole('button', { name: 'Continue' }).click();
@@ -78,7 +78,7 @@ test('the introduction can be replayed from Settings, and walked backwards', asy
 
 test('a need can be thanked for, not only asked about', async ({ page }) => {
   await page.goto('/?demo#/need/connection/closeness');
-  const row = page.locator('.card.list', { hasText: 'Dad' });
+  const row = page.locator('.ah-card--list', { hasText: 'Dad' });
 
   // the request path is unchanged
   await row.getByRole('button', { name: 'Request' }).click();
@@ -128,7 +128,7 @@ test('the composer says what its coaching control does', async ({ page }) => {
 
 test('the coaching control is absent when coaching is off everywhere', async ({ page }) => {
   await page.goto('/?demo#/settings');
-  await page.locator('.chip', { hasText: 'On' }).click();  // Settings → Coaching
+  await page.locator('.ah-chip', { hasText: 'On' }).click();  // Settings → Coaching
   await page.locator('.tabbar .fab').click();
   await page.getByText('Write a new card').click();
   await expect(page.getByRole('button', { name: /coaching/ })).toHaveCount(0);

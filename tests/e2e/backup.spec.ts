@@ -6,7 +6,7 @@ import { expect, test } from '@playwright/test';
 test('setup ends by asking where a copy should live', async ({ page }) => {
   await page.goto('/');
 
-  await page.getByRole('button', { name: 'Setup' }).click();
+  await page.getByRole('button', { name: 'Set up' }).click();
   await page.getByRole('button', { name: 'Continue' }).click();
   await page.getByPlaceholder('A name').fill('Ash');
   await page.getByRole('button', { name: 'Continue' }).click();
@@ -114,7 +114,7 @@ test('settings ends with the version it is running', async ({ page }) => {
 
   // and it really is the last thing on the page, below Start over
   const order = await page.evaluate(() => {
-    const nodes = [...document.querySelectorAll('.scroll > *')];
+    const nodes = [...document.querySelectorAll('.ah-scroll > *')];
     return { last: nodes[nodes.length - 1].className, count: nodes.length };
   });
   expect(order.last).toContain('ver');

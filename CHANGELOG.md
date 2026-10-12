@@ -3,6 +3,33 @@
 Notable changes to Giraffy. The format follows [Keep a Changelog](https://keepachangelog.com),
 and versions follow [Semantic Versioning](https://semver.org).
 
+## [1.6.0] - 2026-10-12
+
+### Added
+
+- **Night.** Settings has an Appearance choice between Day and Night, the two aesthetics of the
+  Ahimsa Design System. Giraffy never switches on its own, not by the hour and not by the
+  system's colour scheme; the choice is kept on the device.
+
+### Changed
+
+- **Giraffy now uses Ahimsa Design System v2.0.0.** Day is newsprint: greys with a hint of
+  colour, in place of cream and orange. The stylesheet is vendored unmodified, and the app's
+  markup uses its classes and semantic tokens only.
+- **Updating and installing are things you ask for, in Settings.** The floating update and
+  install bars are gone, as is the "it has been a while" backup note on Cards. A paused
+  automatic backup is shown inside Settings, where the way back is.
+- Every control now has a 44px press area, toggles say whether they are on to a screen reader,
+  sheets move focus in and return it, and tapping a row is a real button.
+- The icons are gone; labels say what they mean. Hover tooltips are gone too.
+- Messages no longer claim more than Giraffy can know: a backup is "prepared", and a copy or
+  save that fails says so and says nothing was changed.
+
+### Added to the repository
+
+- `npm run check-ahimsa`, which checks the vendored stylesheet, that nothing appears unasked,
+  and that nothing reaches past the semantic tokens.
+
 ## [1.5.0] - 2026-09-25
 
 ### Added

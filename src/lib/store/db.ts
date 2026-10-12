@@ -95,11 +95,13 @@ export interface Prefs {
   /** The folder's name, for saying where backups go. The handle itself is kept apart. */
   backupFolder: string | null;
   lastAutoBackup: string | null;
+  /** Which Ahimsa aesthetic the person chose. Day until they choose otherwise. */
+  theme: 'day' | 'night';
 }
 
 export const DEFAULT_PREFS: Prefs = {
   onboarded: false, lastBackup: null, backupDismissed: false, firstRunDismissed: false,
-  draft: null, openDraft: null, autoBackup: false, backupFolder: null, lastAutoBackup: null
+  draft: null, openDraft: null, autoBackup: false, backupFolder: null, lastAutoBackup: null, theme: 'day'
 };
 
 export function emptyData(): AppData {
@@ -111,7 +113,7 @@ export function emptyData(): AppData {
 }
 
 const DATA_KEYS = ['owner', 'coaching', 'preamble', 'derivedMethod', 'filter', 'sort', 'customAreas', 'customNeeds', 'hiddenNeeds'] as const;
-const PREF_KEYS = ['onboarded', 'lastBackup', 'backupDismissed', 'firstRunDismissed', 'draft', 'openDraft', 'autoBackup', 'backupFolder', 'lastAutoBackup'] as const;
+const PREF_KEYS = ['onboarded', 'lastBackup', 'backupDismissed', 'firstRunDismissed', 'draft', 'openDraft', 'autoBackup', 'backupFolder', 'lastAutoBackup', 'theme'] as const;
 
 /** The backup folder's handle. Kept out of prefs: it is not a value, and it is not reactive. */
 const DIR_KEY = 'backupDir';
