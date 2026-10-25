@@ -35,7 +35,7 @@
     "svelte-check": "^4.7.6",
     "typescript": "^5.9.3",
     "vite": "^8.2.2",
-    "vitest": "^5.0.0"
+    "vitest": "^5.0.5"
   },
   "dependencies": {
     "dexie": "^4.0.0",
